@@ -68,6 +68,7 @@ sub format_cpan_changes_perlancar {
                 if $heading;
             my $group_changes = $rel->{changes}{$heading};
             for my $ch (@{ $group_changes->{changes} }) {
+                $ch .= "." unless $ch =~ /\.$/;
                 $chgs .= Text::Wrap::wrap(
                     (" " x $v_width) . "- ",
                     (" " x ($v_width+2)),
