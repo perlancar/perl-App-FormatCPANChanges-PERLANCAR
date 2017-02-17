@@ -8,6 +8,7 @@ use strict;
 use warnings;
 
 use List::Util qw(max);
+use Sort::Sub qw(changes_group_ala_perlancar);
 
 our %SPEC;
 
@@ -63,7 +64,7 @@ sub format_cpan_changes_perlancar {
 
         $chgs .= sprintf "%-${v_width}s%s%s\n\n",
             $rel->{version}, $rel->{_parsed_date}, $rel->{note} ? " $rel->{note}" : "";
-        for my $heading (sort keys %{ $rel->{changes} }) {
+        for my $heading (sort {changes_group_ala_perlancar($a,$b)} keys %{ $rel->{changes} }) {
             $chgs .= sprintf "%s%s\n\n", (" " x $v_width), "[$heading]"
                 if $heading;
             my $group_changes = $rel->{changes}{$heading};
